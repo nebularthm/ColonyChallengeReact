@@ -18,9 +18,6 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: "20px",
         paddingRight: "20px",
         borderRadius: "6px",
-        textOverflow: "ellipsis",
-        overflow: "visible",
-        whiteSpace: "nowrap",
         "&:hover": {
             backgroundColor: "blue",
           }

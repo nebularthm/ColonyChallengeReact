@@ -8,15 +8,13 @@ import List from "@material-ui/core/List";
 import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
+import "./Event.css";
 const useStyles = makeStyles(theme => ({
     root: {
         width: "700px",
         backgroundColor: theme.palette.background.paper,
         height: "auto",
         boxShadow: "rgba(62, 118, 244, 0.14)"
-      },
-      inline: {
-        display: "inline",
       }
   }))
 function EventList(props) {
@@ -82,7 +80,7 @@ function EventList(props) {
     return (
 
         <div >
-            {hasError ? <p>Error encountered in parsing events, please try again</p> : <p></p>}
+            {hasError && <p>Error encountered in parsing events, please try again</p> }
             {isLoading ? <p>Loading Events Data. Please wait</p> :
             <Grid container direction="column" alignItems="center" justifyContent="center">
         <List className={classes.root}>

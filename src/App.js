@@ -6,11 +6,7 @@ const theme = createTheme({
   typography: {
     fontFamily: [
       "Muli", "Mulish"
-    ].join(","),
-      textOverflow: "ellipsis",
-      overflow: "visible",
-      whiteSpace: "nowrap",
-    
+    ].join(","),   
   },});
 function App() {
   return (
