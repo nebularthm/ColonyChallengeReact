@@ -1,13 +1,6 @@
 .App {
   text-align: center;
 }
-div {
-  font-weight: 400;
-  font-family: "Muli", "Mulish";
-  font-size: 14px;
-  text-overflow: ellipsis;
-  overflow: visible;
-}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

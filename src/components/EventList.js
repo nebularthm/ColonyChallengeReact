@@ -21,16 +21,24 @@ const useStyles = makeStyles(theme => ({
   }))
 function EventList(props) {
     const [events, setEvents] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [hasError, setHasError] = useState(false);
     const classes = useStyles();
     useEffect(() => {
-        (async () => {
-            const colonyClient = await getColonyClient()
+        const loadEvents = async () => {
+            //initialize our loading and error catching events
+            setIsLoading(true);
+            setHasError(false);
+            try {
+            //set up our colony client and filters
+            const colonyClient = await getColonyClient();
             const roleSetFilter = colonyClient.filters.ColonyRoleSet();
             const initializedFilter = colonyClient.filters.ColonyInitialised();
             const payoutClaimedFilter = colonyClient.filters.PayoutClaimed();
             const domainAddedFilter = colonyClient.filters.DomainAdded();
-            const filters = [roleSetFilter, initializedFilter, payoutClaimedFilter, domainAddedFilter]
-            let eventData = []
+            const filters = [roleSetFilter, initializedFilter, payoutClaimedFilter, domainAddedFilter];
+            //temp event data
+            let eventData = [];
             for (let i = 0; i < filters.length; i++) {
                 //get raw and parsed logs for each event filter
                 const rawLogs = await getLogs(colonyClient, filters[i]);
@@ -38,8 +46,10 @@ function EventList(props) {
                 //combine them into one object
                 for (let j = 0; j < rawLogs.length; j++) {
                     let mergedLog = { ...rawLogs[j], ...parsedLogs[j] };
+                    //get date data
                     const logTime = await getBlockTime(provider, mergedLog.blockHash);
                     mergedLog["date"] = new Date(logTime);
+                    //if we are in payout case, get the address
                     if (mergedLog.name === "PayoutClaimed") {
                         const humanReadableFundingPotId = new utils.BigNumber(
                             mergedLog.values.fundingPotId
@@ -55,15 +65,26 @@ function EventList(props) {
                     eventData.push(mergedLog);
                 }
             }
+            //sort by date in descending order(most recent first)
             eventData.sort((a, b) => b.date - a.date);
             setEvents(eventData);
+        }
+        catch {
+            //we encountered an error, display it to user
+            setHasError(true);
+        }
+            //we are done loading data
+            setIsLoading(false);
 
-        })()
-
-    }, [])
+        };
+        loadEvents();
+    }, [setEvents])
     return (
+
         <div >
-            <Grid container direction="column" alignItems="center" justify="center">
+            {hasError ? <p>Error encountered in parsing events, please try again</p> : <p></p>}
+            {isLoading ? <p>Loading Events Data. Please wait</p> :
+            <Grid container direction="column" alignItems="center" justifyContent="center">
         <List className={classes.root}>
             {events.map(event => (
                 <div>
@@ -73,6 +94,7 @@ function EventList(props) {
             ))}
         </List>
         </Grid>
+}
         </div>
     );
 }

@@ -2,7 +2,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import "../App.css";
 import "./Event.css";
 import { ColonyRole } from "@colony/colony-js";
 import { utils } from "ethers";
@@ -24,15 +23,18 @@ const useStyles = makeStyles(theme => ({
           }
       },
 
-  }))
+  }));
 function EventItem(props) {
+    //manually coded map for token to token symbol
     const tokenMap = {"0x6B175474E89094C44Da98b954EedeAC495271d0F" : "DAI", "0x0dd7b8f3d1fa88FAbAa8a04A0c7B52FC35D4312c": "BLNY"};
     const classes = useStyles();
+    //function for getting readable decimal string from hex nums
     function convertBigNumbers(num, cas) {
         const humanReadableAmount = new utils.BigNumber(num);       
 
         //different cases for domains or for amounts
         switch (cas) {
+            //No division needed if we are looking at domains
             case "Domain":
                 return humanReadableAmount.toString();
             default:
@@ -42,6 +44,7 @@ function EventItem(props) {
         }
        
     }
+    //function for creating avatar of size 37 x 37
     function createAvatar(event) {
         switch (event.name) {
  
@@ -68,6 +71,7 @@ function EventItem(props) {
               />
         }
     }
+    //function for rendering primary text in our copy
     function primaryText(event) {
         switch (event.name) {
             case "DomainAdded":
@@ -96,10 +100,9 @@ function EventItem(props) {
             {createAvatar(props.data)}
           </Avatar>
         </ListItemAvatar>
-          <ListItemText primary={primaryText(props.data)} 
-          
-          
-          secondary={props.data?.date.toLocaleDateString("pt-PT")}  />
+          <ListItemText disableTypography={true}  primary={primaryText(props.data)} 
+          secondary={<Typography > {props.data?.date.toLocaleDateString("pt-PT")} </Typography>}
+           />
         </ListItem>
 
     );
