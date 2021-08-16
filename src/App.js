@@ -7,10 +7,10 @@ const theme = createTheme({
     fontFamily: [
       "Muli", "Mulish"
     ].join(","),
-    div: {
       textOverflow: "ellipsis",
       overflow: "visible",
-    }
+      whiteSpace: "nowrap",
+    
   },});
 function App() {
   return (

@@ -3,6 +3,10 @@ div {
   font-family: "Muli", "Mulish";
   font-size: 14px;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+div:hover {
   overflow: visible;
 }
 span {
@@ -10,6 +14,10 @@ span {
   font-family: "Muli", "Mulish";
   font-size: 14px;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+span:hover {
   overflow: visible;
 }
 p {
@@ -17,5 +25,9 @@ p {
   font-family: "Muli", "Mulish";
   font-size: 12px;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+p:hover {
   overflow: visible;
 }

@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: "20px",
         paddingRight: "20px",
         borderRadius: "6px",
+        textOverflow: "ellipsis",
+        overflow: "visible",
+        whiteSpace: "nowrap",
         "&:hover": {
             backgroundColor: "blue",
           }
@@ -100,7 +103,7 @@ function EventItem(props) {
             {createAvatar(props.data)}
           </Avatar>
         </ListItemAvatar>
-          <ListItemText disableTypography={true}  primary={primaryText(props.data)} 
+          <ListItemText   primary={primaryText(props.data)} 
           secondary={<Typography > {props.data?.date.toLocaleDateString("pt-PT")} </Typography>}
            />
         </ListItem>
