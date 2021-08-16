@@ -1,0 +1,7 @@
+span {
+  font-weight: 700;
+  font-family: "Muli", "Mulish";
+  font-size: 14px;
+  text-overflow: ellipsis;
+  overflow: visible;
+}
